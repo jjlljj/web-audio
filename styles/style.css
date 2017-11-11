@@ -1,0 +1,14 @@
+button {
+  display: block;
+  width: 200px;
+  height: 40px;
+  margin: 40px auto;
+}
+
+.start {
+  background-color: green;
+}
+
+.stop {
+  background-color: red;
+}
