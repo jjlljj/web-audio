@@ -1,38 +1,36 @@
-// var audioCtx = new (window.AudioContext || window.webkitAudioContext);
+var play = new Nexus.Toggle('#play');
+var density = new Nexus.Slider('#density');
 
-// $('.start').on('click', function(){
-//   sinea.start();
-//   sineb.start();
-//   sinec.start();
-// })
+synth= new Tone.Oscillator(0, 'triangle').start();
+volume = new Tone.Volume(-Infinity);
+delayGen = new Tone.FeedbackDelay(0.2,0.7);
 
-// $('.stop').on('click', function(){
-//   sinea.stop();
-//   sineb.stop();
-//   sinec.stop();
-// })
+synth.chain(delayGen, volume, Tone.Master);
 
-// var volume = audioCtx.createGain();
-// volume.connect(audioCtx.destination);
+density.min = 0;
+density.max = 0.7;
+density.on('change', function(val) {
+  delayGen.wet.value = val;
+})
 
-// var sinea = audioCtx.createOscillator();
-// sinea.frequency.value = 440;
-// sinea.type = 'sine';
+density.value = 0.4;
 
-// sinea.connect(volume);
+$('.start').on('click', function() {
+  volume.volume.cancelScheduledValues();
+  var level = -20 ;
+  volume.volume.rampTo(level, 2);
+})
 
-// var sineb = audioCtx.createOscillator();
-// sineb.frequency.value = 523.25;
-// sineb.type = 'sine';
-// sineb.connect(volume);
+$('.stop').on('click', function() {
+  volume.volume.cancelScheduledValues();
+  var level = -Infinity ;
+  volume.volume.rampTo(level, 3);
+})
 
-// var sinec = audioCtx.createOscillator();
-// sinec.frequency.value = 699;
-// sinec.type = 'square';
-// sinec.connect(volume)
+var sequence = new Nexus.Sequence([1,4,1,4,2,5,1,3,6,3,6,2,5,1,5,2,5]);
 
+var beat = new Nexus.Interval(300, function(e) {
+  synth.frequency.value = Nexus.note(sequence.next(), -1);
+});
 
-var dial = new Nexus.Dial('#dial');
-
-
-
+beat.start();
