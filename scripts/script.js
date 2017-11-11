@@ -1,5 +1,5 @@
-var play = new Nexus.Toggle('#play');
-var density = new Nexus.Slider('#density');
+
+var delay = new Nexus.Slider('#delay');
 
 synth= new Tone.Oscillator(0, 'triangle').start();
 volume = new Tone.Volume(-Infinity);
@@ -7,13 +7,13 @@ delayGen = new Tone.FeedbackDelay(0.2,0.7);
 
 synth.chain(delayGen, volume, Tone.Master);
 
-density.min = 0;
-density.max = 0.7;
-density.on('change', function(val) {
+delay.min = 0;
+delay.max = 0.7;
+delay.on('change', function(val) {
   delayGen.wet.value = val;
 })
 
-density.value = 0.4;
+delay.value = 0.4;
 
 $('.start').on('click', function() {
   volume.volume.cancelScheduledValues();

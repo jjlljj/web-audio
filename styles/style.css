@@ -12,3 +12,7 @@ button {
 .stop {
   background-color: red;
 }
+
+#delay {
+  margin: auto;
+}
