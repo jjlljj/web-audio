@@ -1,8 +1,16 @@
+body {
+  font-family: 'Work Sans';
+  font-weight: 600;
+  font-size: 12px;
+}
 button {
   display: block;
+  font-family: 'Work Sans';
   width: 200px;
   height: 40px;
   margin: 40px auto;
+  outline: none;
+  cursor: pointer;
 }
 
 .start {
@@ -15,4 +23,5 @@ button {
 
 #delay {
   margin: auto;
+  text-align: center;
 }
